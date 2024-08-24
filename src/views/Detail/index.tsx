@@ -85,7 +85,7 @@ const Detail: React.FC = () => {
 
   return (
     <div>
-      <NavBar title="Dog Detail" leftText='Back' onClickLeft={goBack} />
+      <NavBar title="Dog Detail" leftText="Back" onClickLeft={goBack} />
       <div className={styles.container}>
         <div className={styles.imageContainer}>
           <Image style={{ width: 500, height: 500 }} src={dog.imageURL} />
