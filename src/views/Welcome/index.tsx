@@ -26,10 +26,7 @@ const Welcome: React.FC = () => {
               style={{ width: 240 }}
               cover={<img alt="example" src={Item1} />}
             >
-              <Meta
-                title="Europe Street beat"
-                description="www.instagram.com"
-              />
+              <Meta title="Lenox Bike" description="$9998" />
             </Card>
           </Col>
           <Col xs={24} sm={12} md={8} lg={6}>
@@ -38,10 +35,7 @@ const Welcome: React.FC = () => {
               style={{ width: 240 }}
               cover={<img alt="example" src={Item1} />}
             >
-              <Meta
-                title="Europe Street beat"
-                description="www.instagram.com"
-              />
+              <Meta title="Lenox Bike" description="$9998" />
             </Card>
           </Col>
           <Col xs={24} sm={12} md={8} lg={6}>
@@ -50,10 +44,7 @@ const Welcome: React.FC = () => {
               style={{ width: 240 }}
               cover={<img alt="example" src={Item1} />}
             >
-              <Meta
-                title="Europe Street beat"
-                description="www.instagram.com"
-              />
+              <Meta title="Lenox Bike" description="$9998" />
             </Card>
           </Col>
         </Row>

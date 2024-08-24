@@ -9,12 +9,17 @@ import {
   Checkbox,
   Slider,
   Flex,
+  Radio,
+  Input,
 } from 'antd';
 import { FaSearch, FaBars } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import styles from './index.module.scss';
+import { SearchOutlined } from '@ant-design/icons';
 
 import Item1 from '../../assets/item1.jpg';
+
+import { itemList } from './type';
 
 const { Meta } = Card;
 const { Sider } = Layout;
@@ -22,13 +27,42 @@ const { Sider } = Layout;
 const Product: React.FC = () => {
   const [priceRange, setPriceRange] = useState([0, 100]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [itemlist, setItemList] = useState(itemList);
+  const navigate = useNavigate();
+
+  const handleSearch = () => {
+    // Perform search logic here
+    console.log('Searching for:', searchTerm);
+    if (searchTerm !== '') {
+      setItemList(itemList.filter((item) => item.name === searchTerm));
+    } else {
+      setItemList(itemList);
+    }
+  };
 
   const handlePriceRangeChange = (values: [number, number]) => {
+    console.log('price values', values);
     setPriceRange(values);
+
+    setItemList(
+      itemList.filter(
+        (item) => item.price > values[0] && item.price < values[1],
+      ),
+    );
   };
 
   const handleCategoryChange = (categories: string[]) => {
+    console.log('categories values', categories);
     setSelectedCategories(categories);
+
+    if (categories.length > 0) {
+      setItemList(
+        itemList.filter((item) => categories.includes(item.category)),
+      );
+    } else {
+      setItemList(itemList);
+    }
   };
 
   return (
@@ -49,7 +83,7 @@ const Product: React.FC = () => {
             <Slider
               range
               min={0}
-              max={100}
+              max={100000}
               value={priceRange}
               onChange={handlePriceRangeChange}
             />
@@ -60,63 +94,60 @@ const Product: React.FC = () => {
           <Menu.Item style={{ height: '200px' }}>
             <h3>Categories</h3>
             <Checkbox.Group
-              options={['Category A', 'Category B', 'Category C', 'Category D']}
+              options={['Bike', 'Motor', 'Car', 'Category D']}
               value={selectedCategories}
               onChange={handleCategoryChange}
             />
           </Menu.Item>
         </Menu>
       </Sider>
+
       <div style={{ paddingLeft: '5px' }}>
-        <Row gutter={[16, 16]}>
-          <Col xs={24} sm={12} md={8} lg={6}>
-            <Card
-              hoverable
-              style={{ width: 240 }}
-              cover={<img alt="example" src={Item1} />}
-            >
-              <Meta
-                title="Europe Street beat"
-                description="www.instagram.com"
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <Row gutter={16}>
+            <Col>
+              <Input
+                placeholder="Search..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                style={{ width: '300px' }}
               />
-            </Card>
-          </Col>
-          <Col xs={24} sm={12} md={8} lg={6}>
-            <Card
-              hoverable
-              style={{ width: 240 }}
-              cover={<img alt="example" src={Item1} />}
-            >
-              <Meta
-                title="Europe Street beat"
-                description="www.instagram.com"
-              />
-            </Card>
-          </Col>
-          <Col xs={24} sm={12} md={8} lg={6}>
-            <Card
-              hoverable
-              style={{ width: 240 }}
-              cover={<img alt="example" src={Item1} />}
-            >
-              <Meta
-                title="Europe Street beat"
-                description="www.instagram.com"
-              />
-            </Card>
-          </Col>
-          <Col xs={24} sm={12} md={8} lg={6}>
-            <Card
-              hoverable
-              style={{ width: 240 }}
-              cover={<img alt="example" src={Item1} />}
-            >
-              <Meta
-                title="Europe Street beat"
-                description="www.instagram.com"
-              />
-            </Card>
-          </Col>
+            </Col>
+            <Col>
+              <Button type="primary" onClick={handleSearch}>
+                <SearchOutlined />
+                Search
+              </Button>
+            </Col>
+          </Row>
+
+          <Radio.Group defaultValue="a" buttonStyle="solid" size="small">
+            <Radio.Button value="a">New</Radio.Button>
+            <Radio.Button value="b">Price ascending</Radio.Button>
+            <Radio.Button value="c">Price decending</Radio.Button>
+            <Radio.Button value="d">Rating</Radio.Button>
+          </Radio.Group>
+        </div>
+
+        <Row gutter={[16, 16]} style={{ paddingTop: '10px' }}>
+          {itemlist.map((item) => (
+            <Col xs={24} sm={24} md={12} lg={8}>
+              <Card
+                hoverable
+                style={{ width: 240 }}
+                cover={<img alt="item" src={item.image} />}
+                onClick={() => navigate('/detail')}
+              >
+                <Meta title={item.name} description={`$${item.price}`} />
+              </Card>
+            </Col>
+          ))}
         </Row>
       </div>
     </Layout>
