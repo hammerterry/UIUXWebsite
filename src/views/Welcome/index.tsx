@@ -1,52 +1,35 @@
 import React, { useState } from 'react';
 import { Row, Col, Button, Card, Layout, Typography } from 'antd';
-
-import { FaSearch, FaBars } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import NavigationHeader from '../../component/NavigationHeader';
+import { highlightItemList } from '../Product/type'
 
 const { Meta } = Card;
-const { Content, Footer } = Layout;
 const { Title } = Typography;
-import Item1 from '../../assets/item1.jpg';
 
 const Welcome: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <div className="title">
         <Title>Welcome</Title>
         <Title level={5}>arngen</Title>
-        <Button>Shopping</Button>
+        <Button onClick={() => { navigate('/product')}}> Shopping</Button>
       </div>
-      <div style={{ paddingLeft: '5px' }}>
-        <Row gutter={[16, 16]}>
-          <Col xs={24} sm={12} md={8} lg={6}>
-            <Card
-              hoverable
-              style={{ width: 240 }}
-              cover={<img alt="example" src={Item1} />}
-            >
-              <Meta title="Lenox Bike" description="$9998" />
-            </Card>
-          </Col>
-          <Col xs={24} sm={12} md={8} lg={6}>
-            <Card
-              hoverable
-              style={{ width: 240 }}
-              cover={<img alt="example" src={Item1} />}
-            >
-              <Meta title="Lenox Bike" description="$9998" />
-            </Card>
-          </Col>
-          <Col xs={24} sm={12} md={8} lg={6}>
-            <Card
-              hoverable
-              style={{ width: 240 }}
-              cover={<img alt="example" src={Item1} />}
-            >
-              <Meta title="Lenox Bike" description="$9998" />
-            </Card>
-          </Col>
+      <div style={{ paddingTop:'10px',paddingLeft: '5px' }}>
+
+      <Row gutter={[16, 16]}>
+          {highlightItemList.map((item) => (
+            <Col xs={24} sm={24} md={12} lg={8}>
+              <Card
+                hoverable
+                style={{ width: 240 }}
+                cover={<img alt="item" src={item.image} />}
+                onClick={() => navigate('/detail')}
+              >
+                <Meta title={item.name} description={`$${item.price}`} />
+              </Card>
+            </Col>
+          ))}
         </Row>
       </div>
     </div>

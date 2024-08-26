@@ -41,3 +41,25 @@ export const itemList = [
     category: 'Bike',
   },
 ];
+
+
+export const highlightItemList = [
+  {
+    name: 'item 1',
+    price: 9998,
+    image: Item1,
+    category: 'Bike',
+  },
+  {
+    name: 'item 2',
+    price: 19998,
+    image: Item2,
+    category: 'Car',
+  },
+  {
+    name: 'item 3',
+    price: 5998,
+    image: Item3,
+    category: 'Bike',
+  },
+];
