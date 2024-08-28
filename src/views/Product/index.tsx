@@ -141,8 +141,8 @@ const Product: React.FC = () => {
               <Card
                 hoverable
                 style={{ width: 240 }}
-                cover={<img alt="item" src={item.image} />}
-                onClick={() => navigate('/detail')}
+                cover={<img alt="item" src={item.image[0]} />}
+                onClick={() => navigate('/detail', { state: { id: item.id } })}
               >
                 <Meta title={item.name} description={`$${item.price}`} />
               </Card>

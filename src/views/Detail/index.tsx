@@ -1,14 +1,26 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Layout, Image, Button, Typography, Space, Select } from 'antd';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { Layout, Image, Button, Typography, Space, Select,message  } from 'antd';
 import { itemList } from '../Product/type';
 
 const { Text, Title } = Typography;
 
 const Detail: React.FC = () => {
   const navigate = useNavigate();
+  const [bigImageIndex, setBigImageIndex] = useState(0);
+  const location = useLocation();
+  const { id } = location.state;
+  const [messageApi, contextHolder] = message.useMessage();
+
+  console.log('id', id);
+
+  const handleImageClick = (imageIndex: number) => {
+    console.log('handle Image Click', imageIndex);
+    setBigImageIndex(imageIndex);
+  };
   return (
     <Layout style={{ paddingTop: '5px' }}>
+       {contextHolder}
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <Button
           type="primary"
@@ -24,41 +36,48 @@ const Detail: React.FC = () => {
           <div>
             <Image
               preview={false}
-              width={300}
-              height={300}
-              src={itemList[0].image}
+              width={400}
+              height={400}
+              src={itemList[id].image[bigImageIndex]}
             />
           </div>
-          <div>
+          <div style={{ marginTop: '10px' }}>
             <Image
               preview={false}
-              width={100}
-              height={100}
-              src={itemList[0].image}
+              width={150}
+              height={150}
+              src={itemList[id].image[0]}
+              onClick={() => handleImageClick(0)}
             />
             <Image
               preview={false}
-              width={100}
-              height={100}
-              src={itemList[0].image}
+              width={150}
+              height={150}
+              src={itemList[id].image[1]}
+              onClick={() => handleImageClick(1)}
             />
             <Image
               preview={false}
-              width={100}
-              height={100}
-              src={itemList[0].image}
+              width={150}
+              height={150}
+              src={itemList[id].image[2]}
+              onClick={() => handleImageClick(2)}
             />
           </div>
         </div>
-        <Space direction="vertical">
-          <Title level={3}>Bicycle 1</Title>
-          <Text strong>Hot</Text>
-          <Title>$500</Title>
-          <Text type="secondary">Bicycle 1</Text>
+        <Space direction="vertical" style={{ width: '500px' }}>
+          <Title level={3}>{itemList[id].name}</Title>
+          {itemList[id].isHot && <Text style={{ backgroundColor: '#FA8072' }} strong>
+            Hot
+          </Text>
+          }
+          <Title>{`$${itemList[id].price}`}</Title>
+          <Text type="secondary">{itemList[id].category}</Text>
           <div>
+            <Text>Color</Text>
             <Select
               defaultValue="black"
-              style={{ width: 120 }}
+              style={{ width: '100%' }}
               options={[
                 { value: 'black', label: 'Black' },
                 { value: 'white', label: 'White' },
@@ -66,23 +85,23 @@ const Detail: React.FC = () => {
             />
           </div>
           <div>
+            <Text>Size</Text>
             <Select
               defaultValue="small"
-              style={{ width: 120 }}
+              style={{ width: '100%' }}
               options={[
                 { value: 'small', label: 'Small' },
                 { value: 'large', label: 'Large' },
               ]}
             />
           </div>
-          <Text strong>
-            Lenox electric bike 28"36V8Ah//250w 28'' Aluminum 6061 frame250w
-            rear motor
-          </Text>
+          <Text strong>{itemList[id].descriptions}</Text>
+
           <Button
             style={{ width: '100%' }}
             type="primary"
             onClick={() => {
+              messageApi.info('Purchase successful!');
               //navigate('/product');
             }}
           >

@@ -29,9 +29,9 @@ const Welcome: React.FC = () => {
             <Col xs={24} sm={24} md={12} lg={8}>
               <Card
                 hoverable
-                style={{ width: 240 }}
-                cover={<img alt="item" src={item.image} />}
-                onClick={() => navigate('/detail')}
+                style={{ width: 240 , height:240 }}
+                cover={<img alt="item" src={item.image[0]} />}
+                onClick={() => navigate('/detail', { state: { id: item.id }})}
               >
                 <Meta title={item.name} description={`$${item.price}`} />
               </Card>
