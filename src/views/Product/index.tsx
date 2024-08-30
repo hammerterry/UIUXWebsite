@@ -26,8 +26,15 @@ const { Meta } = Card;
 const { Sider } = Layout;
 
 const Product: React.FC = () => {
-  const [priceRange, setPriceRange] = useState([0, 100]);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [priceRange, setPriceRange] = useState([0, 100000]);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([
+    'Bike',
+    'Motor',
+    'Car',
+    'Lawnmower',
+    'Binoculars',
+  ]);
+  const [selectedSorting, setSelectedSorting] = useState<string>('new');
   const [searchTerm, setSearchTerm] = useState('');
   const [itemlist, setItemList] = useState(itemList);
   const navigate = useNavigate();
@@ -45,29 +52,57 @@ const Product: React.FC = () => {
   const handlePriceRangeChange = (values: [number, number]) => {
     console.log('price values', values);
     setPriceRange(values);
-
+    setSelectedSorting('new');
     setItemList(
-      itemList.filter(
-        (item) => item.price > values[0] && item.price < values[1],
-      ),
+      itemList
+        .filter((item) => item.price > values[0] && item.price < values[1])
+        .filter((item) => selectedCategories.includes(item.category)),
     );
   };
 
   const handleCategoryChange = (categories: string[]) => {
     console.log('categories values', categories);
     setSelectedCategories(categories);
-
-    if (categories.length > 0) {
-      setItemList(
-        itemList.filter((item) => categories.includes(item.category)),
-      );
-    } else {
-      setItemList(itemList);
-    }
+    setSelectedSorting('new');
+    //if (categories.length > 0) {
+    setItemList(
+      itemList
+        .filter((item) => categories.includes(item.category))
+        .filter(
+          (item) => item.price > priceRange[0] && item.price < priceRange[1],
+        ),
+    );
+    //} else {
+    // setItemList(itemList);
+    // }
   };
 
   const handleSortingChange = (event: RadioChangeEvent) => {
-    console.log('sorting values', event.target.value);
+    //console.log('sorting values', event.target.value);
+    setSelectedSorting(event.target.value);
+    var byPrice = itemlist.slice(0);
+    switch (event.target.value) {
+      case 'new':
+        setItemList(itemlist);
+        break;
+      case 'ascending':
+        setItemList(
+          byPrice.sort(function (a, b) {
+            return a.price - b.price;
+          }),
+        );
+        break;
+      case 'decending':
+        setItemList(
+          byPrice.sort(function (a, b) {
+            return b.price - a.price;
+          }),
+        );
+        break;
+      case 'rating':
+        setItemList(itemlist);
+        break;
+    }
   };
 
   return (
@@ -136,6 +171,7 @@ const Product: React.FC = () => {
 
           <Radio.Group
             defaultValue="new"
+            value={selectedSorting}
             buttonStyle="solid"
             size="small"
             onChange={handleSortingChange}
