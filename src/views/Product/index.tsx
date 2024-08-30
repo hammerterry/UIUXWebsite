@@ -11,6 +11,7 @@ import {
   Flex,
   Radio,
   Input,
+  RadioChangeEvent,
 } from 'antd';
 import { FaSearch, FaBars } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
@@ -65,17 +66,23 @@ const Product: React.FC = () => {
     }
   };
 
+  const handleSortingChange = (event: RadioChangeEvent) => {
+    console.log('sorting values', event.target.value);
+  };
+
   return (
     // <Flex justify="space-between">
     <Layout style={{ paddingTop: '5px' }}>
-      <Sider width={300} className="site-layout-background">
+      <Sider width={300} style={{}}>
         <Menu
           mode="vertical"
           style={{
             width: 300,
             height: '100%',
-            borderRight: 0,
             padding: '24px',
+            border: 'solid',
+            borderColor: '#000000',
+            borderWidth: 'thin',
           }}
         >
           <Menu.Item style={{ height: '200px' }}>
@@ -94,7 +101,7 @@ const Product: React.FC = () => {
           <Menu.Item style={{ height: '200px' }}>
             <h3>Categories</h3>
             <Checkbox.Group
-              options={['Bike', 'Motor', 'Car', 'Category D']}
+              options={['Bike', 'Motor', 'Car', 'Lawnmower', 'Binoculars']}
               value={selectedCategories}
               onChange={handleCategoryChange}
             />
@@ -102,7 +109,7 @@ const Product: React.FC = () => {
         </Menu>
       </Sider>
 
-      <div style={{ paddingLeft: '5px' }}>
+      <div style={{ paddingLeft: '10px' }}>
         <div
           style={{
             display: 'flex',
@@ -127,17 +134,22 @@ const Product: React.FC = () => {
             </Col>
           </Row>
 
-          <Radio.Group defaultValue="a" buttonStyle="solid" size="small">
-            <Radio.Button value="a">New</Radio.Button>
-            <Radio.Button value="b">Price ascending</Radio.Button>
-            <Radio.Button value="c">Price decending</Radio.Button>
-            <Radio.Button value="d">Rating</Radio.Button>
+          <Radio.Group
+            defaultValue="new"
+            buttonStyle="solid"
+            size="small"
+            onChange={handleSortingChange}
+          >
+            <Radio.Button value="new">New</Radio.Button>
+            <Radio.Button value="ascending">Price ascending</Radio.Button>
+            <Radio.Button value="decending">Price decending</Radio.Button>
+            <Radio.Button value="rating">Rating</Radio.Button>
           </Radio.Group>
         </div>
 
         <Row gutter={[16, 16]} style={{ paddingTop: '10px' }}>
           {itemlist.map((item) => (
-            <Col xs={24} sm={24} md={12} lg={8}>
+            <Col xs={24} sm={24} md={12} lg={8} key={item.id}>
               <Card
                 hoverable
                 style={{ width: 240 }}

@@ -1,6 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Layout, Image, Button, Typography, Space, Select,message  } from 'antd';
+import { HomeOutlined, ProductOutlined } from '@ant-design/icons';
+import {
+  Layout,
+  Image,
+  Button,
+  Typography,
+  Space,
+  Select,
+  message,
+  Breadcrumb,
+} from 'antd';
 import { itemList } from '../Product/type';
 
 const { Text, Title } = Typography;
@@ -20,20 +30,42 @@ const Detail: React.FC = () => {
   };
   return (
     <Layout style={{ paddingTop: '5px' }}>
-       {contextHolder}
-      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <Button
-          type="primary"
-          onClick={() => {
-            navigate('/product');
-          }}
-        >
-          Back
-        </Button>
+      {contextHolder}
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Breadcrumb
+          items={[
+            {
+              href: '/welcome',
+              title: <HomeOutlined />,
+            },
+            {
+              href: '/product',
+              title: (
+                <>
+                  <ProductOutlined />
+                  <span>Product</span>
+                </>
+              ),
+            },
+            {
+              title: 'Item',
+            },
+          ]}
+        />
+        <div>
+          <Button
+            type="primary"
+            onClick={() => {
+              navigate('/product');
+            }}
+          >
+            Back
+          </Button>
+        </div>
       </div>
       <div style={{ display: 'flex' }}>
         <div style={{ marginLeft: '50px', width: '500px' }}>
-          <div>
+          <div style={{ marginLeft: '30px' }}>
             <Image
               preview={false}
               width={400}
@@ -67,10 +99,11 @@ const Detail: React.FC = () => {
         </div>
         <Space direction="vertical" style={{ width: '500px' }}>
           <Title level={3}>{itemList[id].name}</Title>
-          {itemList[id].isHot && <Text style={{ backgroundColor: '#FA8072' }} strong>
-            Hot
-          </Text>
-          }
+          {itemList[id].isHot && (
+            <Text style={{ backgroundColor: '#FA8072' }} strong>
+              Hot
+            </Text>
+          )}
           <Title>{`$${itemList[id].price}`}</Title>
           <Text type="secondary">{itemList[id].category}</Text>
           <div>
