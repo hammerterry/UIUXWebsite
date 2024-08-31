@@ -12,6 +12,7 @@ import {
   Radio,
   Input,
   RadioChangeEvent,
+  Space,
 } from 'antd';
 import { FaSearch, FaBars } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
@@ -23,7 +24,7 @@ import Item1 from '../../assets/item1.jpg';
 import { itemList } from './type';
 
 const { Meta } = Card;
-const { Sider } = Layout;
+const { Sider, Content } = Layout;
 
 const Product: React.FC = () => {
   const [priceRange, setPriceRange] = useState([0, 100000]);
@@ -44,6 +45,15 @@ const Product: React.FC = () => {
     console.log('Searching for:', searchTerm);
     if (searchTerm !== '') {
       setItemList(itemList.filter((item) => item.name === searchTerm));
+      setPriceRange([0, 100000]);
+      setSelectedCategories([
+        'Bike',
+        'Motor',
+        'Car',
+        'Lawnmower',
+        'Binoculars',
+      ]);
+      setSelectedSorting('new');
     } else {
       setItemList(itemList);
     }
@@ -78,7 +88,6 @@ const Product: React.FC = () => {
   };
 
   const handleSortingChange = (event: RadioChangeEvent) => {
-    //console.log('sorting values', event.target.value);
     setSelectedSorting(event.target.value);
     var byPrice = itemlist.slice(0);
     switch (event.target.value) {
@@ -106,8 +115,13 @@ const Product: React.FC = () => {
   };
 
   return (
-    // <Flex justify="space-between">
-    <Layout style={{ paddingTop: '5px' }}>
+    <Layout
+      style={{
+        paddingTop: '5px',
+        backgroundColor: '#FFFFFF',
+        height: '90vh',
+      }}
+    >
       <Sider width={300} style={{}}>
         <Menu
           mode="vertical"
@@ -144,7 +158,8 @@ const Product: React.FC = () => {
         </Menu>
       </Sider>
 
-      <div style={{ paddingLeft: '10px' }}>
+      <Content style={{ paddingLeft: '10px' }}>
+        {/* <Space direction="vertical" style={{ paddingLeft: '10px' }}> */}
         <div
           style={{
             display: 'flex',
@@ -155,7 +170,7 @@ const Product: React.FC = () => {
           <Row gutter={16}>
             <Col>
               <Input
-                placeholder="Search..."
+                placeholder="Item name..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 style={{ width: '300px' }}
@@ -197,9 +212,9 @@ const Product: React.FC = () => {
             </Col>
           ))}
         </Row>
-      </div>
+        {/* </Space> */}
+      </Content>
     </Layout>
-    // </Flex>
   );
 };
 

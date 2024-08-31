@@ -10,7 +10,7 @@ const { Content, Footer } = Layout;
 const App: React.FC = () => {
   return (
     <Router>
-      <Layout className="layout">
+      <Layout>
         <NavigationHeader />
         <Routes>
           <Route path="/" element={<Welcome />} />

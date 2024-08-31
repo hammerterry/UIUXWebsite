@@ -29,7 +29,7 @@ const Detail: React.FC = () => {
     setBigImageIndex(imageIndex);
   };
   return (
-    <Layout style={{ paddingTop: '5px' }}>
+    <Layout style={{ paddingTop: '5px', backgroundColor: '#FFFFFF' }}>
       {contextHolder}
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Breadcrumb
@@ -97,7 +97,11 @@ const Detail: React.FC = () => {
             />
           </div>
         </div>
-        <Space direction="vertical" style={{ width: '500px' }}>
+
+        <Space
+          direction="vertical"
+          style={{ width: '500px', marginLeft: '10px' }}
+        >
           <Title level={3}>{itemList[id].name}</Title>
           {itemList[id].isHot && (
             <Text style={{ backgroundColor: '#FA8072' }} strong>
@@ -106,28 +110,30 @@ const Detail: React.FC = () => {
           )}
           <Title>{`$${itemList[id].price}`}</Title>
           <Text type="secondary">{itemList[id].category}</Text>
-          <div>
-            <Text>Color</Text>
-            <Select
-              defaultValue="black"
-              style={{ width: '100%' }}
-              options={[
-                { value: 'black', label: 'Black' },
-                { value: 'white', label: 'White' },
-              ]}
-            />
-          </div>
-          <div>
-            <Text>Size</Text>
-            <Select
-              defaultValue="small"
-              style={{ width: '100%' }}
-              options={[
-                { value: 'small', label: 'Small' },
-                { value: 'large', label: 'Large' },
-              ]}
-            />
-          </div>
+          <Space>
+            <Space direction="vertical" style={{ width: 200 }}>
+              <Text>Color</Text>
+              <Select
+                defaultValue="black"
+                style={{ width: '100%' }}
+                options={[
+                  { value: 'black', label: 'Black' },
+                  { value: 'white', label: 'White' },
+                ]}
+              />
+            </Space>
+            <Space direction="vertical" style={{ width: 200 }}>
+              <Text>Size</Text>
+              <Select
+                defaultValue="small"
+                style={{ width: '100%' }}
+                options={[
+                  { value: 'small', label: 'Small' },
+                  { value: 'large', label: 'Large' },
+                ]}
+              />
+            </Space>
+          </Space>
           <Text strong>{itemList[id].descriptions}</Text>
 
           <Button
@@ -135,7 +141,6 @@ const Detail: React.FC = () => {
             type="primary"
             onClick={() => {
               messageApi.info('Purchase successful!');
-              //navigate('/product');
             }}
           >
             Buy

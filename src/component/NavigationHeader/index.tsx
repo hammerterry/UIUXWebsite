@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { Layout, Menu, Image, Button } from 'antd';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Layout, Menu, Image, Button, message } from 'antd';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import type { MenuProps } from 'antd';
-import styles from './index.module.scss';
 import { MdLanguage } from 'react-icons/md';
 import Logo from '../../assets/logo.png';
 
@@ -11,6 +10,22 @@ const { Header } = Layout;
 const NavigationHeader: React.FC = () => {
   const [current, setCurrent] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
+  const [messageApi, contextHolder] = message.useMessage();
+
+  useEffect(() => {
+    //console.log(location.pathname);
+    switch (location.pathname) {
+      case '/product':
+        setCurrent('1');
+        break;
+      case '/detail':
+        setCurrent('1');
+        break;
+      case 'welcome':
+        break;
+    }
+  }, [location.pathname]);
 
   const onClick: MenuProps['onClick'] = (e) => {
     console.log('click ', e);
@@ -26,6 +41,7 @@ const NavigationHeader: React.FC = () => {
         alignItems: 'center',
       }}
     >
+      {contextHolder}
       <div className="logo">
         <Image
           preview={false}
@@ -41,7 +57,6 @@ const NavigationHeader: React.FC = () => {
       <Menu
         theme="light"
         mode="horizontal"
-        //defaultSelectedKeys={['1']}
         style={{
           width: 256,
           display: 'flex',
@@ -56,7 +71,11 @@ const NavigationHeader: React.FC = () => {
           <Link to="/welcome">About</Link>
         </Menu.Item>
         <Menu.Item key="3">
-          <Button>
+          <Button
+            onClick={() => {
+              messageApi.info('Change Language!');
+            }}
+          >
             <MdLanguage />
           </Button>
         </Menu.Item>

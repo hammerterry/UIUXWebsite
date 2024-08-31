@@ -9,13 +9,14 @@ const { Title, Text } = Typography;
 const Welcome: React.FC = () => {
   const navigate = useNavigate();
   return (
-    <div>
+    <div style={{ backgroundColor: '#FFFFFF' }}>
       <div
         style={{
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           height: '30vh',
+          backgroundColor: '#DCDCDC',
         }}
       >
         <Space direction="vertical">
@@ -47,7 +48,7 @@ const Welcome: React.FC = () => {
             <Col xs={24} sm={24} md={12} lg={8}>
               <Card
                 hoverable
-                style={{ width: 240, height: 240 }}
+                style={{ width: 240 }}
                 cover={<img alt="item" src={item.image[0]} />}
                 onClick={() => navigate('/detail', { state: { id: item.id } })}
               >
