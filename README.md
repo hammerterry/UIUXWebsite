@@ -1,34 +1,33 @@
-# Mantine Vite template
+# Getting Started with Create React App
 
-## Features
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-This template comes with the following features:
+## Available Scripts
 
-- [PostCSS](https://postcss.org/) with [mantine-postcss-preset](https://mantine.dev/styles/postcss-preset)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Storybook](https://storybook.js.org/)
-- [Vitest](https://vitest.dev/) setup with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
-- ESLint setup with [eslint-config-mantine](https://github.com/mantinedev/eslint-config-mantine)
+In the project directory, you can run:
 
-## npm scripts
+### `npm run start`
 
-## Build and dev scripts
+Runs the app in the development mode.\
+Open (http://localhost:5173/) to view it in your browser.
 
-- `dev` – start development server
-- `build` – build production version of the app
-- `preview` – locally preview production build
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-### Testing scripts
+### `npm run build`
 
-- `typecheck` – checks TypeScript types
-- `lint` – runs ESLint
-- `prettier:check` – checks files with Prettier
-- `vitest` – runs vitest tests
-- `vitest:watch` – starts vitest watch
-- `test` – runs `vitest`, `prettier:check`, `lint` and `typecheck` scripts
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-### Other scripts
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-- `storybook` – starts storybook dev server
-- `storybook:build` – build production storybook bundle to `storybook-static`
-- `prettier:write` – formats all files with Prettier
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
