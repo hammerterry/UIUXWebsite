@@ -173,7 +173,7 @@ const Product: React.FC = () => {
                 placeholder="Item name..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                style={{ width: '300px' }}
+                style={{ width: '300px', borderColor: '#000000' }}
               />
             </Col>
             <Col>
